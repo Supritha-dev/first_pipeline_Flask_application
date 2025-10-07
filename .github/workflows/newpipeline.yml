@@ -6,12 +6,7 @@ name: Stage 1 - Basic Pipeline
 
 # Trigger: When does this pipeline run?
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 # Jobs: What tasks should be executed?
 jobs:
