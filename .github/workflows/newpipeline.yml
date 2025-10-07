@@ -1,0 +1,86 @@
+# Stage 1: Basic Pipeline - Your First CI/CD Experience
+# This pipeline runs on GitHub's free hosted runners
+# It demonstrates the fundamental concepts of CI/CD
+
+name: Stage 1 - Basic Pipeline
+
+# Trigger: When does this pipeline run?
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# Jobs: What tasks should be executed?
+jobs:
+  # Job 1: Simple Hello World
+  Stage-1-hello-world:
+    runs-on: ubuntu-latest  # 
+    
+    steps:
+      - name: Print greeting
+        run: echo "Hello! Welcome to CI/CD pipelines!"
+      
+      - name: Show current date and time
+        run: date
+      
+      - name: Display runner information
+        run: |
+          echo "Running on: $(uname -a)"
+          echo "Current user: $(whoami)"
+          echo "Current directory: $(pwd)"
+          
+      - name: Print supri
+        run: echo "supri pipelines"
+
+  # Job 2: Basic Python Setup and Execution
+  Stage-2-python-basics:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v5.0.0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      
+      - name: Display Python version
+        run: python --version
+      
+      - name: Run a simple Python script
+        run: |
+          python -c "print('Python is working!')"
+          python -c "print('2 + 2 =', 2 + 2)"
+      
+      - name: List repository files
+        run: ls -la
+
+  # Job 3: Install Dependencies and Run Tests
+  Stage-3-test-application:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flask
+      
+      - name: Run basic test
+        run: |
+          python -c "import flask; print('Flask imported successfully!')"
+          python -c "print('All tests passed!')"
+      
+      - name: Success message
+        run: echo "🎉 Pipeline completed successfully!"
